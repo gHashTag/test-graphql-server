@@ -1132,6 +1132,35 @@ graceful-fs@^4.1.2, graceful-fs@^4.1.4:
   version "4.1.11"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.1.11.tgz#0e8bdfe4d1ddb8854d64e04ea7c00e2a026e5658"
 
+graphql-compose-connection@>=2.5.3, graphql-compose-connection@^2.5.4:
+  version "2.5.4"
+  resolved "https://registry.yarnpkg.com/graphql-compose-connection/-/graphql-compose-connection-2.5.4.tgz#c81948226652261d24f4dc93867c1fdf7361c18d"
+  dependencies:
+    babel-runtime "^6.26.0"
+
+graphql-compose-mongoose@^1.9.4:
+  version "1.9.4"
+  resolved "https://registry.yarnpkg.com/graphql-compose-mongoose/-/graphql-compose-mongoose-1.9.4.tgz#5391c6c6b27f657af61e32fd374baa4956cd2042"
+  dependencies:
+    babel-runtime "^6.26.0"
+    object-path "^0.11.4"
+  optionalDependencies:
+    graphql-compose-connection ">=2.5.3"
+    graphql-compose-pagination ">=1.1.1"
+
+graphql-compose-pagination@>=1.1.1, graphql-compose-pagination@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/graphql-compose-pagination/-/graphql-compose-pagination-1.1.2.tgz#84e2cab8b50fa8123f8e4e89814956e2f18be16a"
+  dependencies:
+    babel-runtime "^6.26.0"
+
+graphql-compose@^2.9.6:
+  version "2.9.6"
+  resolved "https://registry.yarnpkg.com/graphql-compose/-/graphql-compose-2.9.6.tgz#e3df5f885dcbf2d3b825a4f20c2d52a31f871cd2"
+  dependencies:
+    babel-runtime "^6.26.0"
+    object-path "^0.11.4"
+
 graphql-date@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/graphql-date/-/graphql-date-1.0.3.tgz#31ce05ae40ed8c8ceb040364060109771e712e91"
@@ -1569,9 +1598,9 @@ mongodb@2.2.33:
     mongodb-core "2.1.17"
     readable-stream "2.2.7"
 
-mongoose@^4.13.0:
-  version "4.13.0"
-  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-4.13.0.tgz#81bb266e045d66ac8dfdd84fc6749c873d7a6ac4"
+mongoose@^4.13.1:
+  version "4.13.1"
+  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-4.13.1.tgz#c9e203f0847bd5068b5210b0c09b48f847c9eb95"
   dependencies:
     async "2.1.4"
     bson "~1.0.4"
@@ -1669,6 +1698,10 @@ oauth-sign@~0.8.1:
 object-assign@^4.1.0:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
+
+object-path@^0.11.4:
+  version "0.11.4"
+  resolved "https://registry.yarnpkg.com/object-path/-/object-path-0.11.4.tgz#370ae752fbf37de3ea70a861c23bba8915691949"
 
 object.omit@^2.0.0:
   version "2.0.1"
