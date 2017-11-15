@@ -1,15 +1,7 @@
 import { GQC } from 'graphql-compose'
 import { UserTC } from '../model/user'
-import { TweetTC } from '../model/tweet'
 
 GQC.rootQuery().addFields({
-  tweetById: TweetTC.getResolver('findById'),
-  tweetByIds: TweetTC.getResolver('findByIds'),
-  tweetOne: TweetTC.getResolver('findOne'),
-  tweetMany: TweetTC.getResolver('findMany'),
-  tweetCount: TweetTC.getResolver('count'),
-  tweetConnection: TweetTC.getResolver('connection'),
-  tweetPagination: TweetTC.getResolver('pagination'),
   userById: UserTC.getResolver('findById'),
   userByIds: UserTC.getResolver('findByIds'),
   userOne: UserTC.getResolver('findOne'),

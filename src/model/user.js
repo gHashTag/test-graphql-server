@@ -1,32 +1,101 @@
+/* @flow */
+
 import mongoose from 'mongoose'
-import { TweetTC } from './tweet'
 import composeWithMongoose from 'graphql-compose-mongoose'
 
-console.log('TweetTC', TweetTC)
-
-const UserSchema = new mongoose.Schema({
-  username: {
-    type: String,
-    unique: true
+const LanguagesSchema = new mongoose.Schema(
+  {
+    language: String,
+    skill: {
+      type: String,
+      enum: ['basic', 'fluent', 'native'],
+    },
   },
-  firstName: String,
-  lastName: String,
-  avatar: String,
-  password: String,
-  email: String,
-}, { timestamps: true })
+  {
+    _id: false, // disable `_id` field for `Language` schema
+  }
+)
 
+const AddressSchema = new mongoose.Schema({
+  street: String,
+  geo: {
+    type: [Number], // [<longitude>, <latitude>]
+    index: '2dsphere', // create the geospatial index
+  },
+})
+
+export const UserSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      index: true,
+    },
+    age: {
+      type: Number,
+      index: true,
+    },
+    languages: {
+      type: [LanguagesSchema], // you may include other schemas (also as array of embedded documents)
+      default: [],
+    },
+    contacts: {
+      // another mongoose way for providing embedded documents
+      email: String,
+      phones: [String], // array of strings
+    },
+    gender: {
+      // enum field with values
+      type: String,
+      enum: ['male', 'female', 'ladyboy'],
+    },
+    address: {
+      type: AddressSchema,
+    },
+    someMixed: {
+      type: mongoose.Schema.Types.Mixed,
+      description: 'Some dynamic data',
+    },
+  },
+  {
+    collection: 'user_users',
+  }
+)
+
+UserSchema.index({ gender: 1, age: -1 })
 
 export const User = mongoose.model('User', UserSchema)
+
 export const UserTC = composeWithMongoose(User)
 
-UserTC.addRelation(
-  'tweets',
-  {
-    resolver: () => TweetTC.getResolver('findMany'),
-    prepareArgs: {
-      filter: (source) => ({ userId: source._id }),
+UserTC.setResolver(
+  'findMany',
+  UserTC.getResolver('findMany').addFilterArg({
+    name: 'geoDistance',
+    type: `input GeoDistance {
+      lng: Float!
+      lat: Float!
+      # Distance in meters
+      distance: Float!
+    }`,
+    description: 'Search by distance in meters',
+    query: (rawQuery, value, resolveParams) => { // eslint-disable-line
+      if (!value.lng || !value.lat || !value.distance) return
+      // read more https://docs.mongodb.com/manual/tutorial/query-a-2dsphere-index/
+      rawQuery['address.geo'] = {
+        $near: {
+          $geometry: {
+            type: 'Point',
+            coordinates: [value.lng, value.lat],
+          },
+          $maxDistance: value.distance, // <distance in meters>
+        },
+      }
     },
-    projection: { _id: true },
-  }
+  })
+  // /* FOR DEBUG */
+  //   .debug()
+  // /* OR MORE PRECISELY */
+  //   .debugParams()
+  //   .debugPayload()
+  //   .debugExecTime()
 )
