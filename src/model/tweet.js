@@ -7,7 +7,9 @@ const TweetSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
   }
-}, { timestamps: true } )
+}, { timestamps: true })
+
+TweetSchema.index({ userId: 1 }, { background: true })
 
 export const Tweet = mongoose.model('Tweet', TweetSchema)
 export const TweetTC = composeWithMongoose(Tweet)

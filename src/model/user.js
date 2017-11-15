@@ -2,6 +2,8 @@ import mongoose from 'mongoose'
 import { TweetTC } from './tweet'
 import composeWithMongoose from 'graphql-compose-mongoose'
 
+console.log('TweetTC', TweetTC)
+
 const UserSchema = new mongoose.Schema({
   username: {
     type: String,
