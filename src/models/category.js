@@ -20,7 +20,7 @@ export const CategorySchema = new Schema(
     description: String,
   },
   {
-    collection: 'northwind_categories',
+    collection: 'categories',
   }
 )
 

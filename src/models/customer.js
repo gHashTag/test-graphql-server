@@ -24,7 +24,7 @@ export const CustomerSchema = new Schema(
     address: AddressSchema,
   },
   {
-    collection: 'northwind_customers',
+    collection: 'customers',
   }
 )
 

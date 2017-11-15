@@ -29,7 +29,7 @@ export const RegionSchema = new Schema(
     },
   },
   {
-    collection: 'northwind_regions',
+    collection: 'regions',
   }
 )
 

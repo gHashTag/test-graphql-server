@@ -7,6 +7,7 @@ import composeWithRelay from 'graphql-compose-relay'
 import { AddressSchema } from './addressSchema'
 import { ProductTC } from './product'
 
+// Снабженцы
 export const SupplierSchema = new Schema(
   {
     supplierID: {
@@ -23,7 +24,7 @@ export const SupplierSchema = new Schema(
     address: AddressSchema,
   },
   {
-    collection: 'northwind_suppliers',
+    collection: 'suppliers',
   }
 )
 

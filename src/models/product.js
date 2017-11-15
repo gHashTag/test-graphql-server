@@ -29,7 +29,7 @@ export const ProductSchema = new Schema(
     discontinued: Boolean,
   },
   {
-    collection: 'northwind_products',
+    collection: 'products',
   }
 )
 

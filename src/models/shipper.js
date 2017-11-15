@@ -17,7 +17,7 @@ export const ShipperSchema = new Schema(
     phone: String,
   },
   {
-    collection: 'northwind_shippers',
+    collection: 'shippers',
   }
 )
 

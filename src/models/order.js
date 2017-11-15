@@ -45,7 +45,7 @@ export const OrderSchema = new Schema(
     },
   },
   {
-    collection: 'northwind_orders',
+    collection: 'orders',
   }
 )
 

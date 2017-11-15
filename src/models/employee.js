@@ -32,7 +32,7 @@ export const EmployeeSchema = new Schema(
     },
   },
   {
-    collection: 'northwind_employees',
+    collection: 'employees',
   }
 )
 
