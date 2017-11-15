@@ -12,10 +12,6 @@ const UserSchema = new mongoose.Schema({
   avatar: String,
   password: String,
   email: String,
-  tweetsIds: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Tweet'
-  }],
 }, { timestamps: true })
 
 
@@ -25,10 +21,10 @@ export const UserTC = composeWithMongoose(User)
 UserTC.addRelation(
   'tweets',
   {
-    resolver: () => TweetTC.getResolver('findByIds'),
+    resolver: () => TweetTC.getResolver('findMany'),
     prepareArgs: {
-      _ids: (source) => source.tweetsIds || [],
+      filter: (source) => ({ userId: source._id }),
     },
-    projection: { tweetsIds: true },
+    projection: { _id: true },
   }
 )
