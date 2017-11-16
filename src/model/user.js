@@ -1,10 +1,15 @@
 import mongoose from 'mongoose'
 import { TweetTC } from './tweet'
 import composeWithMongoose from 'graphql-compose-mongoose'
+import composeWithRelay from 'graphql-compose-relay'
 
-console.log('TweetTC', TweetTC)
 
 const UserSchema = new mongoose.Schema({
+  userID: {
+    type: Number,
+    description: 'User unique ID',
+    unique: true,
+  },
   username: {
     type: String,
     unique: true
@@ -18,15 +23,12 @@ const UserSchema = new mongoose.Schema({
 
 
 export const User = mongoose.model('User', UserSchema)
-export const UserTC = composeWithMongoose(User)
+export const UserTC = composeWithRelay(composeWithMongoose(User))
 
-UserTC.addRelation(
-  'tweets',
-  {
-    resolver: () => TweetTC.getResolver('findMany'),
-    prepareArgs: {
-      filter: (source) => ({ userId: source._id }),
-    },
-    projection: { _id: true },
-  }
-)
+UserTC.addRelation('tweetConnection', {
+  resolver: () => TweetTC.getResolver('connection'),
+  prepareArgs: {
+    filter: source => ({ userID: source.userID }),
+  },
+  projection: { userID: true },
+})
