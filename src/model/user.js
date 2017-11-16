@@ -5,11 +5,6 @@ import composeWithRelay from 'graphql-compose-relay'
 
 
 const UserSchema = new mongoose.Schema({
-  userID: {
-    type: Number,
-    description: 'User unique ID',
-    unique: true,
-  },
   username: {
     type: String,
     unique: true
@@ -28,7 +23,7 @@ export const UserTC = composeWithRelay(composeWithMongoose(User))
 UserTC.addRelation('tweetConnection', {
   resolver: () => TweetTC.getResolver('connection'),
   prepareArgs: {
-    filter: source => ({ userID: source.userID }),
+    filter: source => ({ userId: source._id.toString() })
   },
   projection: { userID: true },
 })

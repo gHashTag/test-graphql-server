@@ -1,6 +1,6 @@
 export default {
   PORT: process.env.PORT || 3000,
-  DB_URL: 'mongodb://localhost/dharmarooms',
+  DB_URL: 'mongodb://localhost/twitter',
   GRAPHQL_PATH: '/graphql',
   JWT_SECRET: 'thisissecret123'
 }
