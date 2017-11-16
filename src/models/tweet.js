@@ -21,7 +21,7 @@ export const TweetTC = composeWithRelay(composeWithMongoose(Tweet))
 TweetTC.addRelation('user', {
   resolver: () => UserTC.getResolver('findOne'),
   prepareArgs: {
-    filter: source => ({ userID: source._id }),
+    filter: source => ({ user: source._id }),
     skip: null,
     sort: null,
   },
