@@ -1,6 +1,6 @@
 import { GQC } from 'graphql-compose'
-import { TweetTC } from '../model/tweet'
-import { UserTC } from '../model/user'
+import { TweetTC } from '../models/tweet'
+import { UserTC } from '../models/user'
 
 GQC.rootMutation().addFields({
   // User

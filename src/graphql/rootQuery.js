@@ -1,6 +1,6 @@
 import { GQC } from 'graphql-compose'
-import { UserTC } from '../model/user'
-import { TweetTC } from '../model/tweet'
+import { UserTC } from '../models/user'
+import { TweetTC } from '../models/tweet'
 
 GQC.rootQuery().addFields({
   tweetById: TweetTC.getResolver('findById'),
