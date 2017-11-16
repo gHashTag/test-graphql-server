@@ -10,9 +10,10 @@ const TweetSchema = new mongoose.Schema({
     unique: true,
   },
   text: String,
+  userID: String
 }, { timestamps: true })
 
-TweetSchema.index({ userId: 1 }, { background: true })
+TweetSchema.index({ userID: 1 }, { background: true })
 
 export const Tweet = mongoose.model('Tweet', TweetSchema)
 export const TweetTC = composeWithRelay(composeWithMongoose(Tweet))
@@ -20,9 +21,9 @@ export const TweetTC = composeWithRelay(composeWithMongoose(Tweet))
 TweetTC.addRelation('user', {
   resolver: () => UserTC.getResolver('findOne'),
   prepareArgs: {
-    filter: source => ({ userID: source.userID }),
+    filter: source => ({ userID: source._id }),
     skip: null,
     sort: null,
   },
-  projection: { userID: true },
+  projection: { _id: true },
 })

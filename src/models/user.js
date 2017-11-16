@@ -25,10 +25,13 @@ const UserSchema = new mongoose.Schema({
 export const User = mongoose.model('User', UserSchema)
 export const UserTC = composeWithRelay(composeWithMongoose(User))
 
-UserTC.addRelation('tweetConnection', {
-  resolver: () => TweetTC.getResolver('connection'),
-  prepareArgs: {
-    filter: source => ({ userID: source.userID }),
-  },
-  projection: { userID: true },
-})
+UserTC.addRelation(
+	  'tweets',
+	  {
+	    resolver: () => TweetTC.getResolver('findMany'),
+	    prepareArgs: {
+	      filter: (source) => ({ userID: source._id }),
+	    },
+	    projection: { _id: true },
+	  }
+)
