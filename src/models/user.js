@@ -31,11 +31,7 @@ UserTC.addRelation(
 	  {
 	    resolver: () => TweetTC.getResolver('findMany'),
 	    prepareArgs: {
-      //filter: source => ({ userIDs: source._id }),
-      filter: source => { 
-        console.log('source', source)
-        return {tweets: source._id} 
-      }
+        filter: source => ({ userID: source._id }),
 	    },
 	    projection: { _id: true },
 	  }
