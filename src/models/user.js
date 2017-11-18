@@ -5,20 +5,17 @@ import composeWithRelay from 'graphql-compose-relay'
 
 
 const UserSchema = new mongoose.Schema({
-  userID: {
-    type: Number,
-    description: 'User unique ID',
-    unique: true,
-  },
   username: {
     type: String,
     unique: true
   },
   firstName: String,
   lastName: String,
-  avatar: String,
   password: String,
-  email: String,
+  email: {
+    type: String,
+    unique: true
+  },
 }, { timestamps: true })
 
 

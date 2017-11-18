@@ -4,11 +4,6 @@ import composeWithMongoose from 'graphql-compose-mongoose'
 import composeWithRelay from 'graphql-compose-relay'
 
 const TweetSchema = new mongoose.Schema({
-  tweetID: {
-    type: Number,
-    description: 'Tweet unique ID',
-    unique: true,
-  },
   text: String,
   userID: String
 }, { timestamps: true })
