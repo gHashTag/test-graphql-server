@@ -4,17 +4,12 @@ import composeWithMongoose from 'graphql-compose-mongoose'
 import composeWithRelay from 'graphql-compose-relay'
 
 
-const UserSchema = new mongoose.Schema({
-  username: {
-    type: String,
-  },
-  firstName: String,
-  lastName: String,
-  password: String,
-  email: {
-    type: String,
-    unique: true
-  },
+const MasterSchema = new mongoose.Schema({
+  name: String,
+  profession: String,
+  img: String,
+  imgSmall: String,
+  info: String,
   studioID: {
     type: String,
     index: true,
@@ -22,11 +17,10 @@ const UserSchema = new mongoose.Schema({
 }, { timestamps: true })
 
 
-export const User = mongoose.model('User', UserSchema)
-export const UserTC = composeWithMongoose(User)
+export const Master = mongoose.model('Master', MasterSchema)
+export const MasterTC = composeWithMongoose(Master)
 
-
-UserTC.addRelation('studio', {
+MasterTC.addRelation('studio', {
   resolver: () => StudioTC.getResolver('findById'),
   prepareArgs: {
     _id: source => source.studioID,

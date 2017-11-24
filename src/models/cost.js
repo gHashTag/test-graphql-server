@@ -3,18 +3,17 @@ import { StudioTC } from './studio'
 import composeWithMongoose from 'graphql-compose-mongoose'
 import composeWithRelay from 'graphql-compose-relay'
 
-
-const UserSchema = new mongoose.Schema({
-  username: {
+const CostSchema = new mongoose.Schema({
+  name: { 
     type: String,
+    enum: ['Будни', 'Универсальный', 'Разовый'],
   },
-  firstName: String,
-  lastName: String,
-  password: String,
-  email: {
-    type: String,
-    unique: true
-  },
+  limit: String,
+  amount: String,
+  price: String,
+  img: String,
+  imgSmall: String,
+  info: String,
   studioID: {
     type: String,
     index: true,
@@ -22,11 +21,10 @@ const UserSchema = new mongoose.Schema({
 }, { timestamps: true })
 
 
-export const User = mongoose.model('User', UserSchema)
-export const UserTC = composeWithMongoose(User)
+export const Cost = mongoose.model('Cost', CostSchema)
+export const CostTC = composeWithMongoose(Cost)
 
-
-UserTC.addRelation('studio', {
+CostTC.addRelation('studio', {
   resolver: () => StudioTC.getResolver('findById'),
   prepareArgs: {
     _id: source => source.studioID,
