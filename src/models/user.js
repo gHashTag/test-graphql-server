@@ -5,9 +5,15 @@ import composeWithRelay from 'graphql-compose-relay'
 
 
 const UserSchema = new mongoose.Schema({
+  // remove this for simplicity, cause `_id` will be crated automatically
+  // userID: {
+  //   type: Number,
+  //   description: 'User unique ID',
+  //   unique: true,
+  // },
   username: {
     type: String,
-    unique: true
+    // unique: true , remove this for simplicity
   },
   firstName: String,
   lastName: String,
@@ -20,18 +26,14 @@ const UserSchema = new mongoose.Schema({
 
 
 export const User = mongoose.model('User', UserSchema)
-export const UserTC = composeWithRelay(composeWithMongoose(User))
+export const UserTC = composeWithMongoose(User)
 
 UserTC.addRelation(
 	  'tweets',
 	  {
 	    resolver: () => TweetTC.getResolver('findMany'),
 	    prepareArgs: {
-      //filter: source => ({ userIDs: source._id }),
-      filter: source => { 
-        console.log('source', source)
-        return {tweets: source._id} 
-      }
+      filter: source => ({ userID: source._id }),
 	    },
 	    projection: { _id: true },
 	  }
