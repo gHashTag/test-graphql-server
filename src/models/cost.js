@@ -4,10 +4,11 @@ import composeWithMongoose from 'graphql-compose-mongoose'
 import composeWithRelay from 'graphql-compose-relay'
 
 const CostSchema = new mongoose.Schema({
-  name: { 
+  tab: { 
     type: String,
-    enum: ['Будни', 'Универсальный', 'Разовый'],
+    enum: [ 'Tab1', 'Tab2', 'Tab3', 'Tab4', 'Tab5', 'Tab6' ]
   },
+  name: String,
   limit: String,
   amount: String,
   price: String,

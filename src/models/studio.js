@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 import { UserTC } from './user'
 import { MasterTC } from './master'
+import { CostTC } from './cost'
 import composeWithMongoose from 'graphql-compose-mongoose'
 import composeWithRelay from 'graphql-compose-relay'
 
@@ -37,6 +38,14 @@ StudioTC.addRelation('users', {
 
 StudioTC.addRelation('masters', {
   resolver: () => MasterTC.getResolver('findMany'),
+  prepareArgs: {
+    filter: source => ({ studioID: source._id }),
+  },
+  projection: { _id: true },
+})
+
+StudioTC.addRelation('cost', {
+  resolver: () => CostTC.getResolver('findMany'),
   prepareArgs: {
     filter: source => ({ studioID: source._id }),
   },
