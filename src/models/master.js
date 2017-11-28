@@ -18,6 +18,7 @@ const MasterSchema = new mongoose.Schema({
 
 
 export const Master = mongoose.model('Master', MasterSchema)
+//export const MasterTC = composeWithRelay(composeWithMongoose(Master))
 export const MasterTC = composeWithMongoose(Master)
 
 MasterTC.addRelation('studio', {

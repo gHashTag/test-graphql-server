@@ -23,6 +23,7 @@ const CostSchema = new mongoose.Schema({
 
 
 export const Cost = mongoose.model('Cost', CostSchema)
+//export const CostTC = composeWithRelay(composeWithMongoose(Cost))
 export const CostTC = composeWithMongoose(Cost)
 
 CostTC.addRelation('studio', {

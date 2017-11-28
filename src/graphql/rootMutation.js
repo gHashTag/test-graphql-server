@@ -36,6 +36,6 @@ GQC.rootMutation().addFields({
   costUpdateMany: CostTC.getResolver('updateMany'),
   costRemoveById: CostTC.getResolver('removeById'),
   costRemoveOne: CostTC.getResolver('removeOne'),
-  costRemoveMany: CostTC.getResolver('removeMany'),
+  costRemoveMany: CostTC.getResolver('removeMany')
 })
 

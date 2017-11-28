@@ -23,6 +23,7 @@ const UserSchema = new mongoose.Schema({
 
 
 export const User = mongoose.model('User', UserSchema)
+//export const UserTC = composeWithRelay(composeWithMongoose(User))
 export const UserTC = composeWithMongoose(User)
 
 

@@ -11,6 +11,8 @@
     "bcrypt-nodejs": "^0.0.3",
     "body-parser": "^1.18.2",
     "cross-env": "^5.1.1",
+    "eslint-config-equimper": "^2.2.1",
+    "eslint-config-prettier": "^2.9.0",
     "express": "^4.16.2",
     "faker": "^4.1.0",
     "graphql": "^0.11.7",
@@ -20,9 +22,11 @@
     "graphql-compose-pagination": "^1.1.2",
     "graphql-compose-relay": "^1.1.3",
     "graphql-date": "^1.0.3",
+    "graphql-subscriptions": "0.4.4",
     "graphql-tools": "^2.7.2",
     "jsonwebtoken": "^8.1.0",
-    "mongoose": "^4.13.3"
+    "mongoose": "^4.13.3",
+    "subscriptions-transport-ws": "0.8.2"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

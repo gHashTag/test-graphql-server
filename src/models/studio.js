@@ -26,6 +26,7 @@ const StudioSchema = new mongoose.Schema({
 //StudioSchema.index({ name: 1 }, { background: true })
 
 export const Studio = mongoose.model('Studio', StudioSchema)
+//export const StudioTC = composeWithRelay(composeWithMongoose(Studio))
 export const StudioTC = composeWithMongoose(Studio)
 
 StudioTC.addRelation('users', {
