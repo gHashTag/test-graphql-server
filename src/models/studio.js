@@ -1,13 +1,11 @@
-import mongoose from 'mongoose'
-import { UserTC } from './user'
-import { MasterTC } from './master'
-import { CostTC } from './cost'
-import composeWithMongoose from 'graphql-compose-mongoose'
-import composeWithRelay from 'graphql-compose-relay'
+import mongoose, { Schema } from 'mongoose'
+import { hashSync, compareSync } from 'bcrypt-nodejs'
+import jwt from 'jsonwebtoken'
 
+import constants from '../config/constants'
 
-const StudioSchema = new mongoose.Schema({
-  name: {
+const StudioSchema = new Schema({
+  studioname: {
     type: String,
     unique: true
   },
@@ -16,39 +14,37 @@ const StudioSchema = new mongoose.Schema({
     unique: true
   },
   password: String,
+  avatar: String,
   address: String,
   city: String,
   phone: String,
   contactName: String
 }, { timestamps: true })
 
+StudioSchema.pre('save', function (next) {
+  if (this.isModified('password')) {
+    this.password = this._hashPassword(this.password)
+    return next()
+  }
 
-//StudioSchema.index({ name: 1 }, { background: true })
-
-export const Studio = mongoose.model('Studio', StudioSchema)
-//export const StudioTC = composeWithRelay(composeWithMongoose(Studio))
-export const StudioTC = composeWithMongoose(Studio)
-
-StudioTC.addRelation('users', {
-  resolver: () => UserTC.getResolver('findMany'),
-  prepareArgs: {
-    filter: source => ({ studioID: source._id }),
-  },
-  projection: { _id: true },
+  return next()
 })
 
-StudioTC.addRelation('masters', {
-  resolver: () => MasterTC.getResolver('findMany'),
-  prepareArgs: {
-    filter: source => ({ studioID: source._id }),
+StudioSchema.methods = {
+  _hashPassword(password) {
+    return hashSync(password) 
   },
-  projection: { _id: true },
-})
+  authenticateStudio(password) {
+    return compareSync(password, this.password)
+  },
+  createToken() {
+    return jwt.sign(
+      {
+        _id: this._id
+      },
+      constants.JWT_SECRET
+    )
+  }
+} 
 
-StudioTC.addRelation('cost', {
-  resolver: () => CostTC.getResolver('findMany'),
-  prepareArgs: {
-    filter: source => ({ studioID: source._id }),
-  },
-  projection: { _id: true },
-})
+export default mongoose.model('Studio', StudioSchema)

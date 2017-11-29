@@ -3,6 +3,6 @@ export default {
   DB_URL: 'mongodb://localhost/yoga',
   //DB_URL: 'mongodb://test:test@ds111876.mlab.com:11876/io',
   GRAPHQL_PATH: '/graphql',
-  JWT_SECRET: 'thisissecret123',
+  JWT_SECRET: 'thisistopsecret8087',
   SUBSCRIPTIONS_PATH: '/subscriptions'
 }

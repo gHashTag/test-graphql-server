@@ -1,18 +1,17 @@
 import jwt from 'jsonwebtoken'
 
 import constants from '../config/constants'
-import User from '../models/User'
+import Studio from '../models/Studio'
 
-export async function requireAuth(user) {
-  if (!user || !user._id) {
+export async function requireAuth(studio) {
+  if (!studio || !studio._id) {
     throw new Error('Вы не авторизованы!')
   } 
-  const me = await User.findById(user._id)
 
+  const me = await Studio.findById(studio._id)
   if (!me) {
     throw new Error('Вы не авторизованы!')
   }
-
   return me
 }
 
