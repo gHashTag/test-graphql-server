@@ -35,6 +35,18 @@ export default`
     updatedAt: Date!
   }
 
+  type Master {
+    _id: ID! 
+    name: String!
+    profession: String!
+    img: String!
+    imgSmall: String!
+    info: String!
+    studio: Studio!
+    createdAt: Date! 
+    updatedAt: Date!
+  }
+
   type Tweet {
     _id: ID! 
     text: String!
@@ -48,6 +60,9 @@ export default`
     getTweet(_id: ID!): Tweet 
     getTweets: [Tweet]
     getStudioTweets: [Tweet]
+    getMaster(_id: ID!): Master 
+    getMasters: [Master]
+    getStudioMasters: [Master]
     me: Me
   }
 
@@ -55,6 +70,24 @@ export default`
     createTweet(text: String!): Tweet
     updateTweet(_id: ID!, text: String): Tweet
     deleteTweet(_id: ID!): Status
+
+    createMaster( 
+      name: String!, 
+      profession: String!, 
+      img: String!, 
+      imgSmall: String!, 
+      info: String!
+    ): Master 
+    updateMaster(
+      _id: ID!, 
+      name: String!, 
+      profession: String!, 
+      img: String!, 
+      imgSmall: String!, 
+      info: String!
+    ): Master 
+    deleteMaster(_id: ID!): Status
+
     signup(
       studioname: String!, 
       email: String!, 
