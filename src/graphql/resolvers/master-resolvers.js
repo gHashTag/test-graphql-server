@@ -1,5 +1,8 @@
 import Master from '../../models/Master'
 import { requireAuth } from '../../services/auth'
+import { pubsub } from '../../config/pubsub'
+
+const MASTER_ADDED = 'masterAdded'
 
 export default {
   getMaster: async (_, { _id }, { studio }) => {
@@ -12,7 +15,7 @@ export default {
   },
   getMasters: async (_, args, { studio }) => {
     try {
-      await requireAuth(studio)
+      //await requireAuth(studio)
       return Master.find({}).sort({ createdAt: -1 })
     } catch (error) {
       throw error
@@ -20,7 +23,7 @@ export default {
   },
   getStudioMasters: async (_, args, { studio }) => {
     try {
-      await requireAuth(studio)
+      //await requireAuth(studio)
       return Master.find({ studio: studio._id }).sort({ createdAt: -1 })
     } catch (error) {
       throw error
@@ -29,7 +32,11 @@ export default {
   createMaster: async (_, args, { studio }) => {
     try {
       await requireAuth(studio)
-      return Master.create({ ...args, studio: studio._id })
+      const master = await Master.create({ ...args, studio: studio._id })
+
+      pubsub.publish(MASTER_ADDED, { [MASTER_ADDED]: master })
+
+      return master
     } catch (error) {
       throw error
     }
@@ -68,5 +75,8 @@ export default {
     } catch (error) {
       throw error
     } 
-  }
+  },
+  masterAdded: {
+    subscribe: () => pubsub.asyncIterator(MASTER_ADDED)
+  } 
 }

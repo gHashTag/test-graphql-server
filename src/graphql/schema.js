@@ -1,6 +1,13 @@
 export default`
   scalar Date 
 
+  input Upload {
+    name: String!
+    type: String!
+    size: Int!
+    path: String!
+  }
+
   type Status {
     message: String!
   }
@@ -40,7 +47,6 @@ export default`
     name: String!
     profession: String!
     img: String!
-    imgSmall: String!
     info: String!
     studio: Studio!
     createdAt: Date! 
@@ -60,6 +66,7 @@ export default`
     getTweet(_id: ID!): Tweet 
     getTweets: [Tweet]
     getStudioTweets: [Tweet]
+
     getMaster(_id: ID!): Master 
     getMasters: [Master]
     getStudioMasters: [Master]
@@ -67,6 +74,7 @@ export default`
   }
 
   type Mutation {
+    uploadFile(file: Upload!): Boolean!
     createTweet(text: String!): Tweet
     updateTweet(_id: ID!, text: String): Tweet
     deleteTweet(_id: ID!): Status
@@ -75,7 +83,6 @@ export default`
       name: String!, 
       profession: String!, 
       img: String!, 
-      imgSmall: String!, 
       info: String!
     ): Master 
     updateMaster(
@@ -83,7 +90,6 @@ export default`
       name: String!, 
       profession: String!, 
       img: String!, 
-      imgSmall: String!, 
       info: String!
     ): Master 
     deleteMaster(_id: ID!): Status
@@ -104,8 +110,13 @@ export default`
     ): Auth 
   }
 
+  type Subscription {
+    masterAdded: Master 
+  }
+
   schema {
     query: Query
     mutation: Mutation
+    subscription: Subscription
   }
 `

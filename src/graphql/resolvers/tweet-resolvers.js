@@ -12,7 +12,7 @@ export default {
   },
   getTweets: async (_, args, { studio }) => {
     try {
-      await requireAuth(studio)
+      //await requireAuth(studio)
       return Tweet.find({}).sort({ createdAt: -1 })
     } catch (error) {
       throw error

@@ -15,6 +15,7 @@ export default {
   Query: {
     getMaster: MasterResolvers.getMaster,
     getMasters: MasterResolvers.getMasters,
+
     getStudioMasters: MasterResolvers.getStudioMasters,
 
     getTweet: TweetResolvers.getTweet,
@@ -23,6 +24,10 @@ export default {
     me: StudioResolvers.me
   },
   Mutation: {
+    uploadFile: (parent, { file }) => {
+      console.log('file', file)
+      return true
+    },
     createMaster: MasterResolvers.createMaster,
     updateMaster: MasterResolvers.updateMaster,
     deleteMaster: MasterResolvers.deleteMaster,
@@ -32,5 +37,8 @@ export default {
     deleteTweet: TweetResolvers.deleteTweet,
     signup: StudioResolvers.signup,
     login: StudioResolvers.login
+  },
+  Subscription: {
+    masterAdded: MasterResolvers.masterAdded
   }
 }

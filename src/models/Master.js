@@ -4,7 +4,6 @@ const MasterSchema = new Schema({
   name: String,
   profession: String,
   img: String,
-  imgSmall: String,
   info: String,
   studio: {
     type: Schema.Types.ObjectId,
