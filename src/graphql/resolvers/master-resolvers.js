@@ -3,6 +3,8 @@ import { requireAuth } from '../../services/auth'
 import { pubsub } from '../../config/pubsub'
 
 const MASTER_ADDED = 'masterAdded'
+const MASTER_UPDATED = 'masterUpdated'
+const MASTER_DELETED = 'masterDeleted'
 
 export default {
   getMaster: async (_, { _id }, { studio }) => {
@@ -15,7 +17,7 @@ export default {
   },
   getMasters: async (_, args, { studio }) => {
     try {
-      //await requireAuth(studio)
+      await requireAuth(studio)
       return Master.find({}).sort({ createdAt: -1 })
     } catch (error) {
       throw error
@@ -23,7 +25,7 @@ export default {
   },
   getStudioMasters: async (_, args, { studio }) => {
     try {
-      //await requireAuth(studio)
+      await requireAuth(studio)
       return Master.find({ studio: studio._id }).sort({ createdAt: -1 })
     } catch (error) {
       throw error
@@ -46,6 +48,8 @@ export default {
       await requireAuth(studio) 
       const master = await Master.findOne({ _id, studio: studio._id })
 
+      pubsub.publish(MASTER_UPDATED, { [MASTER_UPDATED]: master })
+
       if (!master) {
         throw new Error('Не найден!')
       }
@@ -64,6 +68,8 @@ export default {
       await requireAuth(studio)
       const master = await Master.findOne({ _id, studio: studio._id })  
 
+      pubsub.publish(MASTER_DELETED, { [MASTER_DELETED]: master })
+
       if (!master) {
         throw new Error('Не найден!')
       }
@@ -78,5 +84,11 @@ export default {
   },
   masterAdded: {
     subscribe: () => pubsub.asyncIterator(MASTER_ADDED)
-  } 
+  },
+  masterUpdated: {
+    subscribe: () => pubsub.asyncIterator(MASTER_UPDATED)
+  },
+  masterDeleted: {
+    subscribe: () => pubsub.asyncIterator(MASTER_DELETED)
+  }
 }

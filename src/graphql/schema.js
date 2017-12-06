@@ -1,13 +1,6 @@
 export default`
   scalar Date 
 
-  input Upload {
-    name: String!
-    type: String!
-    size: Int!
-    path: String!
-  }
-
   type Status {
     message: String!
   }
@@ -53,6 +46,17 @@ export default`
     updatedAt: Date!
   }
 
+  type Service {
+    _id: ID! 
+    name: String!
+    profession: String!
+    img: String!
+    info: String!
+    studio: Studio!
+    createdAt: Date! 
+    updatedAt: Date!
+  }
+
   type Tweet {
     _id: ID! 
     text: String!
@@ -70,11 +74,15 @@ export default`
     getMaster(_id: ID!): Master 
     getMasters: [Master]
     getStudioMasters: [Master]
+
+    getService(_id: ID!): Service 
+    getServices: [Service]
+    getStudioServices: [Service]
+
     me: Me
   }
 
   type Mutation {
-    uploadFile(file: Upload!): Boolean!
     createTweet(text: String!): Tweet
     updateTweet(_id: ID!, text: String): Tweet
     deleteTweet(_id: ID!): Status
@@ -94,6 +102,21 @@ export default`
     ): Master 
     deleteMaster(_id: ID!): Status
 
+    createService( 
+      name: String!, 
+      profession: String!, 
+      img: String!, 
+      info: String!
+    ): Service 
+    updateService(
+      _id: ID!, 
+      name: String!, 
+      profession: String!, 
+      img: String!, 
+      info: String!
+    ): Service 
+    deleteService(_id: ID!): Status
+
     signup(
       studioname: String!, 
       email: String!, 
@@ -112,6 +135,12 @@ export default`
 
   type Subscription {
     masterAdded: Master 
+    masterUpdated: Master
+    masterDeleted: Master
+
+    serviceAdded: Service 
+    serviceUpdated: Service 
+    serviceDeleted: Service 
   }
 
   schema {

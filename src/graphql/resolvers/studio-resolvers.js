@@ -18,7 +18,7 @@ export default {
       const studio = await Studio.findOne({ email })
 
       if (!studio) {
-        throw new Error('Такой студиии у нас еще нет')
+        throw new Error('Такой студии у нас еще нет')
       }
       if (!studio.authenticateStudio(password)) {
         throw new Error('Пароль не совпадает')
