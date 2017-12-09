@@ -57,6 +57,18 @@ export default`
     updatedAt: Date!
   }
 
+
+  type Price {
+    _id: ID! 
+    title: String!
+    subtitle: String!
+    img: String!
+    info: String!
+    studio: Studio!
+    createdAt: Date! 
+    updatedAt: Date!
+  }
+
   type Tweet {
     _id: ID! 
     text: String!
@@ -78,6 +90,10 @@ export default`
     getService(_id: ID!): Service 
     getServices: [Service]
     getStudioServices: [Service]
+
+    getPrice(_id: ID!): Price 
+    getPrices: [Price]
+    getStudioPrices: [Price]
 
     me: Me
   }
@@ -117,6 +133,21 @@ export default`
     ): Service 
     deleteService(_id: ID!): Status
 
+    createPrice( 
+      title: String!, 
+      subtitle: String!, 
+      img: String!, 
+      info: String!
+    ): Price 
+    updatePrice(
+      _id: ID!, 
+      title: String!, 
+      subtitle: String!, 
+      img: String!, 
+      info: String!
+    ): Price
+    deletePrice(_id: ID!): Status
+
     signup(
       studioname: String!, 
       email: String!, 
@@ -141,6 +172,10 @@ export default`
     serviceAdded: Service 
     serviceUpdated: Service 
     serviceDeleted: Service 
+
+    priceAdded: Price 
+    priceUpdated: Price 
+    priceDeleted: Price 
   }
 
   schema {
