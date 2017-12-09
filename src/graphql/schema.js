@@ -49,7 +49,7 @@ export default`
   type Service {
     _id: ID! 
     name: String!
-    profession: String!
+    servicename: String!
     img: String!
     info: String!
     studio: Studio!
@@ -104,14 +104,14 @@ export default`
 
     createService( 
       name: String!, 
-      profession: String!, 
+      servicename: String!, 
       img: String!, 
       info: String!
     ): Service 
     updateService(
       _id: ID!, 
       name: String!, 
-      profession: String!, 
+      servicename: String!, 
       img: String!, 
       info: String!
     ): Service 

@@ -18,7 +18,7 @@ export default {
   getMasters: async (_, args, { studio }) => {
     try {
       await requireAuth(studio)
-      return Master.find({}).sort({ createdAt: -1 })
+      return Master.find({}).sort({ updatedAt: -1 })
     } catch (error) {
       throw error
     }
@@ -26,7 +26,7 @@ export default {
   getStudioMasters: async (_, args, { studio }) => {
     try {
       await requireAuth(studio)
-      return Master.find({ studio: studio._id }).sort({ createdAt: -1 })
+      return Master.find({ studio: studio._id }).sort({ updatedAt: -1 })
     } catch (error) {
       throw error
     }

@@ -18,7 +18,7 @@ export default {
   getServices: async (_, args, { studio }) => {
     try {
       await requireAuth(studio)
-      return Service.find({}).sort({ createdAt: -1 })
+      return Service.find({}).sort({ updatedAt: -1 })
     } catch (error) {
       throw error
     }
@@ -26,7 +26,7 @@ export default {
   getStudioServices: async (_, args, { studio }) => {
     try {
       await requireAuth(studio)
-      return Service.find({ studio: studio._id }).sort({ createdAt: -1 })
+      return Service.find({ studio: studio._id }).sort({ updatedAt: -1 })
     } catch (error) {
       throw error
     }
@@ -37,6 +37,7 @@ export default {
       const service = await Service.create({ ...args, studio: studio._id })
 
       pubsub.publish(SERVICE_ADDED, { [SERVICE_ADDED]: service })
+      console.log('pubsub', pubsub.publish)
 
       return service 
     } catch (error) {

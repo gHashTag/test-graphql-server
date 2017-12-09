@@ -2,7 +2,7 @@ import mongoose, { Schema } from 'mongoose'
 
 const ServiceSchema = new Schema({
   name: String,
-  profession: String,
+  servicename: String,
   img: String,
   info: String,
   studio: {
