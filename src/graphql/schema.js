@@ -37,8 +37,8 @@ export default`
 
   type Master {
     _id: ID! 
-    name: String!
-    profession: String!
+    title: String!
+    subtitle: String!
     img: String!
     info: String!
     studio: Studio!
@@ -48,8 +48,8 @@ export default`
 
   type Service {
     _id: ID! 
-    name: String!
-    servicename: String!
+    title: String!
+    subtitle: String!
     img: String!
     info: String!
     studio: Studio!
@@ -88,30 +88,30 @@ export default`
     deleteTweet(_id: ID!): Status
 
     createMaster( 
-      name: String!, 
-      profession: String!, 
+      title: String!, 
+      subtitle: String!, 
       img: String!, 
       info: String!
     ): Master 
     updateMaster(
       _id: ID!, 
-      name: String!, 
-      profession: String!, 
+      title: String!, 
+      subtitle: String!, 
       img: String!, 
       info: String!
     ): Master 
     deleteMaster(_id: ID!): Status
 
     createService( 
-      name: String!, 
-      servicename: String!, 
+      title: String!, 
+      subtitle: String!, 
       img: String!, 
       info: String!
     ): Service 
     updateService(
       _id: ID!, 
-      name: String!, 
-      servicename: String!, 
+      title: String!, 
+      subtitle: String!, 
       img: String!, 
       info: String!
     ): Service 

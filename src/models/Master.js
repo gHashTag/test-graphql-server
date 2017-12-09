@@ -1,8 +1,8 @@
 import mongoose, { Schema } from 'mongoose'
 
 const MasterSchema = new Schema({
-  name: String,
-  profession: String,
+  title: String,
+  subtitle: String,
   img: String,
   info: String,
   studio: {

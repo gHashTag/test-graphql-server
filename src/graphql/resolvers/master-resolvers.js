@@ -34,11 +34,11 @@ export default {
   createMaster: async (_, args, { studio }) => {
     try {
       await requireAuth(studio)
-      const master = await Master.create({ ...args, studio: studio._id })
+      const item = await Master.create({ ...args, studio: studio._id })
 
-      pubsub.publish(MASTER_ADDED, { [MASTER_ADDED]: master })
+      pubsub.publish(MASTER_ADDED, { [MASTER_ADDED]: item })
 
-      return master
+      return item 
     } catch (error) {
       throw error
     }
@@ -46,19 +46,19 @@ export default {
   updateMaster: async (_, { _id, ...rest }, { studio }) => {
     try {
       await requireAuth(studio) 
-      const master = await Master.findOne({ _id, studio: studio._id })
+      const item = await Master.findOne({ _id, studio: studio._id })
 
-      pubsub.publish(MASTER_UPDATED, { [MASTER_UPDATED]: master })
+      pubsub.publish(MASTER_UPDATED, { [MASTER_UPDATED]: item })
 
-      if (!master) {
+      if (!item) {
         throw new Error('Не найден!')
       }
 
       Object.entries(rest).forEach(([key, value]) => {
-        master[key] = value
+        item[key] = value
       })
 
-      return master.save()
+      return item.save()
     } catch (error) {
       throw error
     }
@@ -66,15 +66,15 @@ export default {
   deleteMaster: async (_, { _id }, { studio }) => {
     try {
       await requireAuth(studio)
-      const master = await Master.findOne({ _id, studio: studio._id })  
+      const item = await Master.findOne({ _id, studio: studio._id })  
 
-      pubsub.publish(MASTER_DELETED, { [MASTER_DELETED]: master })
+      pubsub.publish(MASTER_DELETED, { [MASTER_DELETED]: item })
 
-      if (!master) {
+      if (!item) {
         throw new Error('Не найден!')
       }
 
-      await master.remove()
+      await item.remove()
       return {
         message: 'Delete Success!'
       }

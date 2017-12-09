@@ -34,12 +34,12 @@ export default {
   createService: async (_, args, { studio }) => {
     try {
       await requireAuth(studio)
-      const service = await Service.create({ ...args, studio: studio._id })
+      const item = await Service.create({ ...args, studio: studio._id })
 
-      pubsub.publish(SERVICE_ADDED, { [SERVICE_ADDED]: service })
+      pubsub.publish(SERVICE_ADDED, { [SERVICE_ADDED]: item })
       console.log('pubsub', pubsub.publish)
 
-      return service 
+      return item
     } catch (error) {
       throw error
     }
@@ -47,19 +47,19 @@ export default {
   updateService: async (_, { _id, ...rest }, { studio }) => {
     try {
       await requireAuth(studio) 
-      const service = await Service.findOne({ _id, studio: studio._id })
+      const item = await Service.findOne({ _id, studio: studio._id })
 
-      pubsub.publish(SERVICE_UPDATED, { [SERVICE_UPDATED]: service })
+      pubsub.publish(SERVICE_UPDATED, { [SERVICE_UPDATED]: item })
 
-      if (!service) {
+      if (!item) {
         throw new Error('Не найден!')
       }
 
       Object.entries(rest).forEach(([key, value]) => {
-        service[key] = value
+        item[key] = value
       })
 
-      return service.save()
+      return item.save()
     } catch (error) {
       throw error
     }
@@ -67,15 +67,15 @@ export default {
   deleteService: async (_, { _id }, { studio }) => {
     try {
       await requireAuth(studio)
-      const service = await Service.findOne({ _id, studio: studio._id })  
+      const item = await Service.findOne({ _id, studio: studio._id })  
 
-      pubsub.publish(SERVICE_DELETED, { [SERVICE_DELETED]: service })
+      pubsub.publish(SERVICE_DELETED, { [SERVICE_DELETED]: item })
 
-      if (!service) {
+      if (!item) {
         throw new Error('Не найден!')
       }
 
-      await service.remove()
+      await item.remove()
       return {
         message: 'Delete Success!'
       }

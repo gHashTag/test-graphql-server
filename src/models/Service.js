@@ -1,8 +1,8 @@
 import mongoose, { Schema } from 'mongoose'
 
 const ServiceSchema = new Schema({
-  name: String,
-  servicename: String,
+  title: String,
+  subtitle: String,
   img: String,
   info: String,
   studio: {
