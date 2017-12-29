@@ -2,7 +2,8 @@ import mongoose, { Schema } from 'mongoose'
 
 const EventSchema = new Schema({
   title: String,
-  masters: {
+  event_times: Array,
+  masterlink: {
     type: Schema.Types.ObjectId,
     ref: 'master'
   }

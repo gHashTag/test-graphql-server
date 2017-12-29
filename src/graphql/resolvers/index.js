@@ -3,10 +3,10 @@ import EventResolvers from './event-resolvers'
 
 export default {
   Master:{
-    events: EventResolvers.getEventsByMaster  // tricky part to link query relation ship between Master and Event
+    eventslink: EventResolvers.getEventsByMaster  // tricky part to link query relation ship between Master and Event
   },
   Event:{
-    masters: MasterResolvers.getMasterByEvent  // tricky part to link query relation ship between Master and Event
+    masterlink: MasterResolvers.getMasterByEvent  // tricky part to link query relation ship between Master and Event
   },
   Query: {
     getMaster: MasterResolvers.getMaster,

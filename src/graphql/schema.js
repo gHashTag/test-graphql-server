@@ -1,4 +1,6 @@
 export default`
+  scalar Date 
+
   type Status {
     message: String!
   }
@@ -6,13 +8,14 @@ export default`
   type Master {
     _id: ID!
     title: String
-    events: [Event]
+    eventslink: [Event]
   }
 
   type Event {
     _id: ID 
     title: String
-    masters: Master
+    event_times: [Date!]!
+    masterlink: Master
   }
 
   type Query {
@@ -28,7 +31,8 @@ export default`
     ): Master 
     createEvent(
       title: String, 
-      masters: ID!, 
+      event_times: [Date!]!,
+      masterlink: ID!, 
     ): Event 
   }
 

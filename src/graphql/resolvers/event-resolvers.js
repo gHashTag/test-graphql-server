@@ -9,7 +9,7 @@ export default {
       throw error
     }
   },
-  getEventsByMaster: (master, {}) =>  Event.find({masters: master._id }), // for relationship
+  getEventsByMaster: (master, {}) =>  Event.find({masterlink: master._id }), // for relationship
   createEvent: async (_, args) => {
     // Create new event
     return await Event.create(args) 
