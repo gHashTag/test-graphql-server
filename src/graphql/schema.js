@@ -12,7 +12,7 @@ export default`
   type Event {
     _id: ID 
     title: String
-    masters: Master
+    masters: [Master]
   }
 
   type Query {
@@ -26,9 +26,10 @@ export default`
     createMaster(
       title: String
     ): Master 
+
     createEvent(
       title: String, 
-      masters: ID!, 
+      masters: ID!
     ): Event 
   }
 
