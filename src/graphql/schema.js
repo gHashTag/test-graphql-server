@@ -3,32 +3,33 @@ export default`
     message: String!
   }
 
-  type User {
+  type Master {
     _id: ID!
-    firstName: String
-    lastName: String
-    email: String
-    cars: [Car]
+    title: String
+    events: [Event]
   }
 
-  type Car {
+  type Event {
     _id: ID 
-    make: String
-    model: String
-    year: String
-    seller: User
+    title: String
+    masters: Master
   }
 
   type Query {
-    getUser(_id: ID!): User 
-    getUsers: [User] 
-    getCar(_id: ID!): Car 
-    getCars: [Car] 
+    getMaster(_id: ID!): Master 
+    getMasters: [Master] 
+    getEvent(_id: ID!): Event 
+    getEvents: [Event] 
   }
 
   type Mutation {
-    createUser(firstName: String, lastName: String, email: String): User 
-    createCar(_id: ID!, make: String, model: String, year: String): Car 
+    createMaster(
+      title: String
+    ): Master 
+    createEvent(
+      title: String, 
+      masters: ID!, 
+    ): Event 
   }
 
   schema {
